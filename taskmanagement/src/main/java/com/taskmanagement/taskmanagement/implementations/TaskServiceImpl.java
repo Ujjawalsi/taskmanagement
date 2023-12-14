@@ -43,7 +43,12 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task updateTask(Task task, Long taskId) {
         Task task1 = this.taskRepo.findById(taskId).orElseThrow(()-> new ResourceNotFoundException("Task", "taskId", taskId));
-        task1.setStatus(task.getStatus());
+        if (task.getStatus().equalsIgnoreCase("Pending")|| task.getStatus().equalsIgnoreCase("In progress") || task.getStatus().equalsIgnoreCase("Completed")
+                ||  task.getStatus().equalsIgnoreCase("New")) {
+            task1.setStatus(task.getStatus());
+        }else{
+            throw new RuntimeException("Invalid status. Allowed values: New ,pending, in progress, completed");
+        }
         task1.setTitle(task.getTitle());
         task1.setDescription(task.getDescription());
         task1.setDueDate(task.getDueDate());

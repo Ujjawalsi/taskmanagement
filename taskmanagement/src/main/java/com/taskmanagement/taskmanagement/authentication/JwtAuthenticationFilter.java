@@ -43,8 +43,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 logger.info("Illegal Argument while fetching userName !! ");
                 throw new IllegalArgumentException("Illegal Argument while fetching userName !! ");
             }catch (ExpiredJwtException e){
-                logger.info("Given JWT token is Expired. Please login the application again OR Refresh the page !! ");
-              throw new RuntimeException("Given JWT token is Expired. Please login the application again OR Refresh the page !! ");
+                logger.info("Given JWT token is Expired");
+              throw new RuntimeException("Given JWT token is Expired");
             }catch (MalformedJwtException e){
                 logger.info("Some changed has done in token !! Invalid token ");
                 throw new MalformedJwtException("Some changed has done in token !! Invalid token ");

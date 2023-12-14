@@ -1,11 +1,11 @@
 package com.taskmanagement.taskmanagement.controllers;
 
+import com.taskmanagement.taskmanagement.constants.ApiResponse;
 import com.taskmanagement.taskmanagement.constants.AppConstants;
 import com.taskmanagement.taskmanagement.constants.TaskResponse;
 import com.taskmanagement.taskmanagement.entities.Task;
 import com.taskmanagement.taskmanagement.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -58,5 +58,11 @@ public class TaskController {
     public ResponseEntity<List<Task>> getAllTasksByStatus(@PathVariable("status") String status){
         List<Task> taskListByStatus = this.taskService.getTaskByStatus(status);
         return new ResponseEntity<>(taskListByStatus, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse> deleteTask(@PathVariable("id") Long taskId){
+        this.taskService.deleteTask(taskId);
+        return new ResponseEntity<>(new ApiResponse("Task Deleted Successfully", true), HttpStatus.OK);
     }
 }
